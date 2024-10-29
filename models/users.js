@@ -9,7 +9,8 @@ const userSchema = new Schema({
   userName:{ type: String,required: true},
   email: { type: String, unique: true, required: true},
   password: { type: String, required: true},
-  confirmPassword: { type: String, required: true}
+  confirmPassword: { type: String, required: true},
+  avatar: {type:String, default:null}
 
 }, {timestamps: true});
 
