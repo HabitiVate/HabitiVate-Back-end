@@ -1,6 +1,7 @@
 import { userModel } from "../models/users.js";
 import { loginUserValidator, registerUserValidator, updateUserProfileValidator } from "../validators/users.validate.js";
 import bcryptjs from "bcryptjs"
+import jwt from "jsonwebtoken"
 
 
 export const registerUser = async (req, res, next) => {
