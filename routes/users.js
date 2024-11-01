@@ -1,5 +1,6 @@
 import { Router } from "express";
-import { getUserProfile, loginUser, logoutuser, registerUser, updateUserProfile } from "../controllers/users.js";
+import { getUserProfile, loginUser, logoutUser, registerUser, updateUserProfile } from "../controllers/users.js";
+import { isAuthentication } from "../middlewares/auth.js";
 
 
 const userRoute = Router();
@@ -8,10 +9,10 @@ userRoute.post('/user/register',registerUser)
 
 userRoute.post('/user/login', loginUser)
 
-userRoute.get('/user/profile', getUserProfile)
+userRoute.get('/user/profile', isAuthentication, getUserProfile)
 
-userRoute.post('/user/me', updateUserProfile)
+userRoute.patch('/user/me', isAuthentication, updateUserProfile)
 
-userRoute.post('/user/logout', logoutuser)
+userRoute.post('/user/logout', logoutUser)
 
 export default userRoute
