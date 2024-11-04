@@ -2,8 +2,9 @@ import express from "express";
 import mongoose from "mongoose";
 import cors from "cors"
 
-import userRoute from "./routes/users.js";
-
+import userRouter from "./routes/users.js";
+import habitRouter from "./routes/habits.js";
+import todoRouter from "./routes/todo.js";
 
 //connect to database
 await mongoose.connect(process.env.MONGO_URI);
@@ -16,8 +17,8 @@ app.use(express.json());
 app.use(cors())
 
 //use routes
-app.use(userRoute);
-
+app.use(userRouter, habitRouter, todoRouter);
+    
 
 //listen on incoming requests
 app.listen(3005, () => {

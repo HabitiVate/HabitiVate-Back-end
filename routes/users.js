@@ -1,18 +1,18 @@
 import { Router } from "express";
 import { getUserProfile, loginUser, logoutUser, registerUser, updateUserProfile } from "../controllers/users.js";
 import { isAuthentication } from "../middlewares/auth.js";
+import { upload } from "../middlewares/upload.js";
 
+const userRouter = Router();
 
-const userRoute = Router();
+userRouter.post('/user/register',registerUser)
 
-userRoute.post('/user/register',registerUser)
+userRouter.post('/user/login', loginUser)
 
-userRoute.post('/user/login', loginUser)
+userRouter.get('/user/profile', isAuthentication, getUserProfile)
 
-userRoute.get('/user/profile', isAuthentication, getUserProfile)
+userRouter.patch('/user/me', isAuthentication, upload.single("avatar"), updateUserProfile)
 
-userRoute.patch('/user/me', isAuthentication, updateUserProfile)
+userRouter.post('/user/logout', logoutUser)
 
-userRoute.post('/user/logout', logoutUser)
-
-export default userRoute
+export default userRouter

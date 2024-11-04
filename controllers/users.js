@@ -49,7 +49,7 @@ export const loginUser = async (req, res, next) => {
     }
     //sign a token to user
     const token = jwt.sign({ id: user.id }, process.env.JWT_PRIVATE_KEY, {
-        expiresIn:"24h"
+      expiresIn: "24h",
     });
     //respond to request
      res.status(200).json({ message: "User logged in!", accessToken: token });
@@ -74,7 +74,7 @@ export const updateUserProfile = async (req, res, next) => {
     try {
         const { error, value } = updateUserProfileValidator.validate({
           ...req.body,
-          avatar: req.file?.filename,
+          avatar: req.file?.filename
         });
         if (error) {
             return res.status(422).json(error)
