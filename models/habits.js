@@ -14,4 +14,4 @@ const habitSchema = new Schema(
 
 habitSchema.plugin(toJSON)
 
-export const habitModel = model ('habits', habitSchema)
+export const HabitModel = model ('habits', habitSchema)
