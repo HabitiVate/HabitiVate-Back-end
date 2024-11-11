@@ -21,6 +21,10 @@ export const addHabit = async (req, res, next) => {
   }
 };
 
+export const searchHabit = (req, res, next) =>{
+  res.status(200).json("search a habit")
+};
+
 export const getHabitById = async (req, res, next) => {
   try {
     const habit = await HabitModel.findById(req.params.id);
@@ -32,6 +36,19 @@ export const getHabitById = async (req, res, next) => {
     res.status(500).json({ message: "Failed to fetch habit", error });
   }
 };
+
+export const getHabitByCategory = async (req, res, next) => {
+  try {
+    const habitByCategory = await HabitModel.findById(req.params.id);
+  
+    if (!habitByCategory) {
+      return res.status(404).json({ message: "habit not found" });
+    }
+    res.status(200).json(habitByCategory);
+  } catch (error) {
+    res.status(500).json({ message: "Failed to fetch habit", error });
+  }
+}
 
 export const getAllHabits = async (req, res, next) => {
   try {
@@ -77,6 +94,6 @@ export const deleteHabit = async (req, res, next) => {
      await HabitModel.findByIdAndDelete(req.params.id);
      res.status(200).json("habit deleted!");
  } catch (error) {
-   res.status(500).json({ message: "Failed to delete ", error });
+   res.status(500).json({ message: "Failed to delete habit", error });
  }
 };
