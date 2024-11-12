@@ -1,4 +1,4 @@
-import { userModel } from "../models/users.js";
+import { UserModel } from "../models/users.js";
 import { loginUserValidator, registerUserValidator, updateUserProfileValidator } from "../validators/users.validate.js";
 import bcryptjs from "bcryptjs"
 import jwt from "jsonwebtoken"
@@ -12,14 +12,14 @@ export const registerUser = async (req, res, next) => {
         return res.status(422).json(error);
     }
     //check if user already exist
-    const user = await userModel.findOne ({email:value.email});
+    const user = await UserModel.findOne ({email:value.email});
     if (user) {
         return res.status(409).json("user already exist!")
     }
     //hash password
     const hashPassword = await bcryptjs.hashSync (value.password, 10)
     //save user into database
-    await userModel.create({...value, password: hashPassword});
+    await UserModel.create({...value, password: hashPassword});
     //send user confirmation mail???
     //respond to request
      res.status(201).json('User registered!')
@@ -36,7 +36,7 @@ export const loginUser = async (req, res, next) => {
         return res.status(422).json(error)
     }
     //find one with identifier
-    const user = await userModel.findOne ({
+    const user = await UserModel.findOne ({
         email: value.email,
     });
     if(!user) {
@@ -61,7 +61,7 @@ export const loginUser = async (req, res, next) => {
 export const getUserProfile = async (req, res, next) => {
     try {
         //find authenticated user from database
-        const user = await userModel.findById(req.auth.id).select({
+        const user = await UserModel.findById(req.auth.id).select({
             password: false,
         });
         res.status(200).json(user)
@@ -80,7 +80,7 @@ export const updateUserProfile = async (req, res, next) => {
             return res.status(422).json(error)
         }
         //update user
-        const updatedUser = await userModel.findByIdAndUpdate(req.auth.id, value, {
+        const updatedUser = await UserModel.findByIdAndUpdate(req.auth.id, value, {
             new: true
         });
         if(!updatedUser){

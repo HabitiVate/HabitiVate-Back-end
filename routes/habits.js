@@ -2,6 +2,7 @@ import { Router } from "express";
 import { addHabit,deleteHabit,getAllHabits,getHabitByCategory,getHabitById, updateHabit } from "../controllers/habits.js";
 import { isAuthentication } from "../middlewares/auth.js";
 
+
 const habitRouter = Router();
 
 habitRouter.post("/habits", isAuthentication, addHabit);

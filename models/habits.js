@@ -6,13 +6,18 @@ const habitSchema = new Schema(
     title: { type: String, required: true },
     description: { type: String, required: true },
     duration: { type: String, required: true },
-    createdby: {type: Types.ObjectId, ref:"user", required: true}
+    status: {
+      type: String,
+      enum: ["all", "weak", "strong"],
+      default: "all",
+    },
+    createdby: { type: Types.ObjectId, ref: "user", required: true },
   },
   {
     timestamps: true,
   }
 );
 
-habitSchema.plugin(toJSON)
+habitSchema.plugin(toJSON);
 
-export const HabitModel = model ('habits', habitSchema)
+export const HabitModel = model("habits", habitSchema);

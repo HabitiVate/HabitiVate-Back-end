@@ -54,7 +54,10 @@ export const getAllHabits = async (req, res, next) => {
   try {
     const { filter = "{}", sort = "{}", limit = 10, skip = 0 } = req.query;
 
-    const habits = await HabitModel.find(JSON.parse(filter))
+    const habits = await HabitModel.find({
+      ...JSON.parse(filter),
+      user: req.auth.id,
+    })
       .sort(JSON.parse(sort))
       .limit(limit)
       .skip(skip);

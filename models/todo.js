@@ -6,15 +6,15 @@ const todoSchema = new Schema(
   {
     title: { type: String, required: true },
     description: { type: String },
-    status: {
-      type: String,
-      default: "pending",
-      enum: ["pending", "completed"],
-    },
     category: { type: String },
     dueDate: { type: Date },
     reminder: { type: Date },
     completed: { type: Boolean, default: false },
+    status: {
+      type: String,
+      enum: ["active", "scheduled", "complete"],
+      default: "active",
+    },
     createdby: { type: Types.ObjectId, ref: "user", required: true },
   },
   {

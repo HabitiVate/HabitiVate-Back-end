@@ -37,7 +37,10 @@ export const getAllTodos = async (req, res, next) => {
   try {
     const { filter = "{}", sort = "{}", limit = 10, skip = 0 } = req.query;
 
-    const todos = await TodoModel.find(JSON.parse(filter))
+    const todos = await TodoModel.find({
+      ...JSON.parse(filter),
+      user:req.auth.id,
+    })
       .sort(JSON.parse(sort))
       .limit(limit)
       .skip(skip);
