@@ -1,3 +1,4 @@
+import { Daily } from "../models/dailies.js";
 import { HabitModel } from "../models/habits.js";
 import { TodoModel } from "../models/todo.js";
 import { UserModel } from "../models/users.js";
@@ -60,6 +61,7 @@ export const loginUser = async (req, res, next) => {
    }
 };
 
+
 export const getUserHabits = async (req, res, next) => {
     try {
         const { filter = "{}", sort = "{}", limit = 50, skip = 0 } = req.query;
@@ -76,6 +78,8 @@ export const getUserHabits = async (req, res, next) => {
         next (error)
     }
 };
+
+
 export const getUserTodos = async (req, res, next) => {
     try {
         const { filter = "{}", sort = "{}", limit = 50, skip = 0 } = req.query;
@@ -90,8 +94,28 @@ export const getUserTodos = async (req, res, next) => {
           res.status(200).json(todos);
     } catch (error) {
         next (error)
+    }; 
+};
+
+
+export const getUserDaily = async (req, res, next) => {
+    try {
+        const { filter = "{}", sort = "{}", limit = 50, skip = 0 } = req.query;
+        const daily = await Daily.find({
+          ...JSON.parse(filter),
+          user: req.auth.id,
+        })
+          .sort(JSON.parse(sort))
+          .limit(limit)
+          .skip(skip)
+          .populate("user");
+          res.status(200).json(daily);
+    } catch (error) {
+        next (error)
     }
 };
+
+
 
 export const getUserProfile = async (req, res, next) => {
     try {

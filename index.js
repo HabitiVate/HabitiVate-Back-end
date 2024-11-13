@@ -5,6 +5,7 @@ import cors from "cors"
 import userRouter from "./routes/users.js";
 import habitRouter from "./routes/habits.js";
 import todoRouter from "./routes/todo.js";
+import dailyRouter from "./routes/dailies.js";
 
 //connect to database
 await mongoose.connect(process.env.MONGO_URI);
@@ -17,7 +18,7 @@ app.use(express.json());
 app.use(cors())
 
 //use routes
-app.use(userRouter, habitRouter, todoRouter);
+app.use(userRouter, habitRouter, todoRouter, dailyRouter);
     
 
 //listen on incoming requests

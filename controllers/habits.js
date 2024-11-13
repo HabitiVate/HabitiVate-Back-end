@@ -29,14 +29,14 @@ export const getHabitById = async (req, res, next) => {
     }
     res.status(200).json(habit);
   } catch (error) {
-    res.status(500).json({ message: "Failed to fetch habit", error });
+    res.status(422).json({ message: "Failed to fetch habit", error });
   }
 };
 
 
 export const getAllHabits = async (req, res, next) => {
   try {
-    const { filter = "{}", sort = "{}", limit = 10, skip = 0 } = req.query;
+    const { filter = "{}", sort = "{}", limit = 50, skip = 0 } = req.query;
 
     const habits = await HabitModel.find(JSON.parse(filter))
       .sort(JSON.parse(sort))
@@ -44,7 +44,7 @@ export const getAllHabits = async (req, res, next) => {
       .skip(skip);
      res.status(200).json(habits);
   } catch (error) {
-     res.status(500).json({ message: "Failed to fetch habits", error });
+     res.status(422).json({ message: "Failed to fetch habits", error });
   }
 };
 
@@ -65,7 +65,7 @@ export const updateHabit = async (req, res, next) => {
      }
      res.status(200).json(updatedHabit);
   } catch (error) {
-    res.status(500).json({ message: "Failed to update habit", error });
+    res.status(422).json({ message: "Failed to update habit", error });
   }
 };
 
@@ -78,6 +78,6 @@ export const deleteHabit = async (req, res, next) => {
      await HabitModel.findByIdAndDelete(req.params.id);
      res.status(200).json("habit deleted!");
  } catch (error) {
-   res.status(500).json({ message: "Failed to delete habit", error });
+   res.status(422).json({ message: "Failed to delete habit", error });
  }
 };
