@@ -1,3 +1,5 @@
+import { HabitModel } from "../models/habits.js";
+import { TodoModel } from "../models/todo.js";
 import { UserModel } from "../models/users.js";
 import { loginUserValidator, registerUserValidator, updateUserProfileValidator } from "../validators/users.validate.js";
 import bcryptjs from "bcryptjs"
@@ -56,6 +58,39 @@ export const loginUser = async (req, res, next) => {
    } catch (error) {
         next(error)
    }
+};
+
+export const getUserHabits = async (req, res, next) => {
+    try {
+        const { filter = "{}", sort = "{}", limit = 50, skip = 0 } = req.query;
+        const habits = await HabitModel.find({
+          ...JSON.parse(filter),
+          user: req.auth.id,
+        })
+          .sort(JSON.parse(sort))
+          .limit(limit)
+          .skip(skip)
+          .populate("user");
+          res.status(200).json(habits);
+    } catch (error) {
+        next (error)
+    }
+};
+export const getUserTodos = async (req, res, next) => {
+    try {
+        const { filter = "{}", sort = "{}", limit = 50, skip = 0 } = req.query;
+        const todos = await TodoModel.find({
+          ...JSON.parse(filter),
+          user: req.auth.id,
+        })
+          .sort(JSON.parse(sort))
+          .limit(limit)
+          .skip(skip)
+          .populate("user");
+          res.status(200).json(todos);
+    } catch (error) {
+        next (error)
+    }
 };
 
 export const getUserProfile = async (req, res, next) => {

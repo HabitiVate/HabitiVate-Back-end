@@ -37,16 +37,13 @@ export const getAllTodos = async (req, res, next) => {
   try {
     const { filter = "{}", sort = "{}", limit = 10, skip = 0 } = req.query;
 
-    const todos = await TodoModel.find({
-      ...JSON.parse(filter),
-      user:req.auth.id,
-    })
+    const todos = await TodoModel.find(JSON.parse(filter))
       .sort(JSON.parse(sort))
       .limit(limit)
       .skip(skip);
     res.status(200).json(todos);
   } catch (error) {
-    res.status(500).json({ message: "Failed to fetch todos", error });
+    res.status(422).json({ message: "Failed to fetch todos", error });
   }
 };
 
@@ -64,20 +61,20 @@ export const updateTodo = async (req, res, next) => {
     if (!updateTodo) return res.status(404).json({ message: "todo not found" });
     res.status(201).json("todo updated successfully!");
   } catch (error) {
-    res.status(500).json({ message: "Failed to update todo", error });
+    res.status(422).json({ message: "Failed to update todo", error });
   }
 };
 
 export const deleteTodo = async (req, res, next) => {
   try {
-    const deleteTodo = await TodoModel.findById(req.params.id);
+    const deleteTodo = await TodoModel.findByIdAndDelete(req.params.id);
     if (!deleteTodo) {
       return res.status(404).json({ message: "todo not found" });
     }
-    await HabitModel.findByIdAndDelete(req.params.id);
+
     res.status(201).json("todo deleted!");
   } catch (error) {
-     res.status(500).json({ message: "Failed to delete todo", error });
+     res.status(422).json({ message: "Failed to delete todo", error });
   }
 };
 

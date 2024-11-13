@@ -21,10 +21,6 @@ export const addHabit = async (req, res, next) => {
   }
 };
 
-export const searchHabit = (req, res, next) =>{
-  res.status(200).json("search a habit")
-};
-
 export const getHabitById = async (req, res, next) => {
   try {
     const habit = await HabitModel.findById(req.params.id);
@@ -37,27 +33,12 @@ export const getHabitById = async (req, res, next) => {
   }
 };
 
-export const getHabitByCategory = async (req, res, next) => {
-  try {
-    const habitByCategory = await HabitModel.findById(req.params.id);
-  
-    if (!habitByCategory) {
-      return res.status(404).json({ message: "habit not found" });
-    }
-    res.status(200).json(habitByCategory);
-  } catch (error) {
-    res.status(500).json({ message: "Failed to fetch habit", error });
-  }
-}
 
 export const getAllHabits = async (req, res, next) => {
   try {
     const { filter = "{}", sort = "{}", limit = 10, skip = 0 } = req.query;
 
-    const habits = await HabitModel.find({
-      ...JSON.parse(filter),
-      user: req.auth.id,
-    })
+    const habits = await HabitModel.find(JSON.parse(filter))
       .sort(JSON.parse(sort))
       .limit(limit)
       .skip(skip);

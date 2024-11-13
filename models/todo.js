@@ -15,7 +15,7 @@ const todoSchema = new Schema(
       enum: ["active", "scheduled", "complete"],
       default: "active",
     },
-    createdby: { type: Types.ObjectId, ref: "user", required: true },
+    user: { type: Types.ObjectId, ref: "user", required: true },
   },
   {
     timestamps: true,

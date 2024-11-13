@@ -11,7 +11,7 @@ const habitSchema = new Schema(
       enum: ["all", "weak", "strong"],
       default: "all",
     },
-    createdby: { type: Types.ObjectId, ref: "user", required: true },
+    user: { type: Types.ObjectId, ref: "user", required: true },
   },
   {
     timestamps: true,
