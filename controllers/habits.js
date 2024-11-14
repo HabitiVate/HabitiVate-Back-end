@@ -63,7 +63,7 @@ export const updateHabit = async (req, res, next) => {
      if (!updatedHabit) {
        return res.status(404).json({ message: "Habit not found" });
      }
-     res.status(200).json(updatedHabit);
+     res.status(200).json("habit updated successfully!");
   } catch (error) {
     res.status(422).json({ message: "Failed to update habit", error });
   }

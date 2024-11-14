@@ -9,6 +9,6 @@ export const addHabitValidator = Joi.object({
 
 export const updateHabitValidator = Joi.object({
   title: Joi.string(),
-  description: Joi.string,
+  description: Joi.string(),
   duration: Joi.string()
 });
