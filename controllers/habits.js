@@ -57,7 +57,7 @@ export const updateHabit = async (req, res, next) => {
      }
       const updatedHabit = await HabitModel.findByIdAndUpdate(
         { _id: req.params.id, user: req.auth.id },
-        value,
+        req.body,
         { new: true }
       );
      if (!updatedHabit) {
