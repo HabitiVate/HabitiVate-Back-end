@@ -21,7 +21,7 @@ export const addTodo = async (req, res, next) => {
   }
 };
 
-export const getTodoByCategory = async (req, res, next) => {
+export const getTodoById = async (req, res, next) => {
   try {
     const todoByCategory = await TodoModel.findById(req.params.id);
     if (!todoByCategory) {
