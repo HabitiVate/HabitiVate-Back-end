@@ -17,7 +17,7 @@ userRouter.get('/users/me/dailies', isAuthentication, getUserDaily);
 
 userRouter.get('/user/profile', isAuthentication, getUserProfile);
 
-userRouter.patch('/user/me', isAuthentication, upload.single("avatar"), updateUserProfile);
+userRouter.patch('/user/me/:id', isAuthentication, upload.single("avatar"), updateUserProfile);
 
 userRouter.post('/user/logout', logoutUser);
 
