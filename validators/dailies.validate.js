@@ -14,12 +14,12 @@ export const addDailyValidator = Joi.object({
 });
 
 export const updateDailyValidator = Joi.object({
-  title: Joi.string().required(),
-  description: Joi.string().required(),
+  title: Joi.string(),
+  description: Joi.string(),
   frequency: Joi.string().valid("daily", "weekly", "monthly"),
   difficulty: Joi.string().valid("easy", "medium", "hard", "trivial") .default("medium"),
   tags: Joi.string(),
   streak: Joi.number(),
   status: Joi.string().valid("all", "due", "not due").default("all"),
-  completed: Joi.boolean().required(),
+  completed: Joi.boolean(),
 });
