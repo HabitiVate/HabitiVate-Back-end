@@ -6,7 +6,8 @@ import userRouter from "./routes/users.js";
 import habitRouter from "./routes/habits.js";
 import todoRouter from "./routes/todo.js";
 import dailyRouter from "./routes/dailies.js";
-import searchRouter from "./routes/searchroute.js";
+import searchRouter from "./routes/search.js";
+
 
 //connect to database
 try {
