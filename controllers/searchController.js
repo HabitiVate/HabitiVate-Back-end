@@ -2,9 +2,11 @@ import { Daily } from "../models/dailies.js";
 import { HabitModel } from "../models/habits.js";
 import { TodoModel } from "../models/todo.js";
 
+
 export const searchEntities = async (req, res) => {
   const { keyword = "", type } = req.query; // Get search parameters
   const { id: userId } = req.auth; // Extract the authenticated user's ID from req.auth
+
 
   // Define the search query
   const searchQuery = {
