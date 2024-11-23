@@ -6,9 +6,15 @@ import userRouter from "./routes/users.js";
 import habitRouter from "./routes/habits.js";
 import todoRouter from "./routes/todo.js";
 import dailyRouter from "./routes/dailies.js";
+import searchRouter from "./routes/searchroute.js";
 
 //connect to database
-await mongoose.connect(process.env.MONGO_URI);
+try {
+    await mongoose.connect(process.env.MONGO_URI);
+    console.log('database is connected')
+} catch (error) {
+    console.log(error)
+}
 
 //create an express app
 const app = express();
@@ -18,7 +24,7 @@ app.use(express.json());
 app.use(cors())
 
 //use routes
-app.use(userRouter, habitRouter, todoRouter, dailyRouter);
+app.use(userRouter, habitRouter, todoRouter, dailyRouter, searchRouter);
     
 
 //listen on incoming requests
